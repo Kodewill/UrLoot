@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::prefix('manage')->middleware('role:administrador|superadministrator|user')->group(function (){
+	Route::get('/','ManageController@index');
+	Route::get('/dashboard','ManageController@dashboard')->name('manage.dashboard');
+});
+
+Route::get('/home','HomeController@index')->name('home');
